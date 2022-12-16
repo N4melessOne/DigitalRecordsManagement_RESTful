@@ -1,0 +1,16 @@
+﻿<Project Sdk="Devsense.Php.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>30c88572-b7d9-46b6-b34e-2ac78f940c47</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnvName>PHPDev</EnvName>
+    <RuntimeVersion>8.1</RuntimeVersion>
+    <SaveServerSettingsInUserFile>false</SaveServerSettingsInUserFile>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <PHPDevAutoPort>false</PHPDevAutoPort>
+    <PHPDevRouting />
+    <PHPDevPort>8888</PHPDevPort>
+    <RootNamespace>DigitalRrecordsManagement_REST_API</RootNamespace>
+    <WebRoot />
+  </PropertyGroup>
+</Project>
