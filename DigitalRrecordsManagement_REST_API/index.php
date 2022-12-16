@@ -94,8 +94,8 @@ switch ($request){
 			exit;
 		}
 
-		if (!empty($data["id"]))
-			deleteRecordByID($data["id"]);
+		if (!empty($data["recordid_to_delete"]))
+			deleteRecordByID($data["recordid_to_delete"]);
 		break;
 
 	default:

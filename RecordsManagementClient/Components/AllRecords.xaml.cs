@@ -44,8 +44,6 @@ namespace RecordsManagementClient.Components
                 MessageBox.Show(response.StatusDescription);
             else
             {
-                //string responseContent = response.Content!;
-                //responseContent = responseContent.Remove(responseContent.IndexOf(']')+1);
                 List<Record> allRecords = JsonSerializer.Deserialize<List<Record>>(response.Content!)!;
                 dataGrid.ItemsSource = allRecords;
             }
@@ -53,11 +51,7 @@ namespace RecordsManagementClient.Components
 
         private void btnUpdateRecord_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            RestRequest request = new RestRequest();
-            request.AddParameter("current_admin_name", ManegementWindow.currentAdmin.AdminName);
-            request.AddParameter("current_admin_password", ManegementWindow.currentAdmin.AdminPass);
-            request.AddParameter("record_title", )*/
+
         }
 
         private void btnDeleteRecord_Click(object sender, RoutedEventArgs e)
@@ -71,10 +65,32 @@ namespace RecordsManagementClient.Components
 
             if ((dataGrid.SelectedItem as Record) != null)
             {
-                RestRequest request = new RestRequest();
-                request.AddParameter("current_admin_name", ManegementWindow.currentAdmin!.AdminName);
-                request.AddParameter("current_admin_password", ManegementWindow.currentAdmin!.AdminPass);
-                request.AddParameter("recordid_to_delete", (dataGrid.SelectedItem as Record)!.Id);
+                RestRequest request = new RestRequest(ManegementWindow.RestURL, Method.Delete);
+                Dictionary<string, object> jsonObject = new Dictionary<string, object>();
+                jsonObject.Add("current_admin_name", ManegementWindow.currentAdmin!.AdminName);
+                jsonObject.Add("current_admin_password", ManegementWindow.currentAdmin!.AdminPass);
+                jsonObject.Add("recordid_to_delete", (dataGrid.SelectedItem as Record)!.Id);
+
+                var json = JsonSerializer.Serialize(jsonObject, typeof(Dictionary<string, object>));
+                request.AddBody(json);
+
+                var response = ManegementWindow.Client.Delete(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                    MessageBox.Show(response.StatusDescription);
+                else
+                {
+                    Response responseFromDelete = ManegementWindow.Client.Deserialize<Response>(response).Data!;
+                    if (responseFromDelete.Error == 0 && responseFromDelete.Message == "Deleted successfully!")
+                    {
+                        MessageBox.Show(responseFromDelete.Message);
+                        RefreshRecordsGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show(responseFromDelete.Message);
+                    }
+                }
             }
             else
                 MessageBox.Show("There is no record selected!");
