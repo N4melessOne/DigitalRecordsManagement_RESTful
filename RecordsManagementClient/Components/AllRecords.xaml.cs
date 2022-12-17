@@ -51,7 +51,9 @@ namespace RecordsManagementClient.Components
 
         private void btnUpdateRecord_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO:
+            //getting the object through the API
+            //Serialize the object gotten from the API, then open UpdateRecordView with the record instance
         }
 
         private void btnDeleteRecord_Click(object sender, RoutedEventArgs e)

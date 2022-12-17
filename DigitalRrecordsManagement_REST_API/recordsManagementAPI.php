@@ -46,28 +46,45 @@ function getRecordById($id){
 
 
 function addRecord($performer, $title, $price, $stock){
+    //beacuse the client passes in the $price with decimal comma, I have to validate.
+    $priceNum;
+    if (str_contains(strval($price), ',')){
+        $str_price = strval($price);
+        $priceNum = floatval(str_replace(',', '.', $str_price));
+    }
+    else{
+        $priceNum = $price;
+    }
+
     global $connection;
-    $params = array($performer, $title, $price, $stock);
+    $params = array();
     $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
-    $query = "INSERT INTO [dbo].Record (Performer, Title, Price, StockCount) VALUES (?,?,?,?)";
+    $query = "INSERT INTO [dbo].Record (Performer, Title, Price, StockCount) VALUES ('{$performer}','{$title}',{$priceNum},{$stock})";
 
 
     try{
         $statement = sqlsrv_query($connection, $query, $params, $options);
-        $row_count = sqlsrv_num_rows($statement);
-        if($row_count !== false)
-        {
-            $response = array();
-            $response['Error'] = 0;
-            $response['Message']='New record inserted successfully!';
-            echo(json_encode($response));
+        if ($statement){
+            $row_count = sqlsrv_num_rows($statement);
+            if($row_count !== false)
+            {
+                $response = array();
+                $response['Error'] = 0;
+                $response['Message']='Inserted successfully!';
+                echo(json_encode($response));
+            }
+            else{
+                $response = array();
+                $response['Error'] = 1;
+                $response['Message'] = "Insert failed!";
+                echo(json_encode($response));
+            }
         }
         else{
             $response = array();
             $response['Error'] = 1;
             $response['Message'] = "Insert failed!";
             echo(json_encode($response));
-
         }
     }
     catch(PDOException $e) {
