@@ -9,14 +9,12 @@ namespace RecordsManagementClient.Model
     internal class Response
     {
 		private int error;
-
 		public int Error
 		{
 			get { return error; }
 			set { error = value; }
 		}
 		private string message = null!;
-
 		public string Message
 		{
 			get { return message; }

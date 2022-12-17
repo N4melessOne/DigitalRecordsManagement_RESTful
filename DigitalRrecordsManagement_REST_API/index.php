@@ -8,8 +8,13 @@ $request = $_SERVER['REQUEST_METHOD'];
 
 switch ($request){
     case "GET":
-		echo 
-        getAllRecords();
+		if(!empty($_GET["recordid"])){
+            getRecordById($_GET["recordid"]);
+        }
+		else{
+            echo 
+            getAllRecords();
+        }
 	break;
 
     case "POST":

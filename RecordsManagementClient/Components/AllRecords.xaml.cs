@@ -51,9 +51,33 @@ namespace RecordsManagementClient.Components
 
         private void btnUpdateRecord_Click(object sender, RoutedEventArgs e)
         {
+            if (ManegementWindow.currentAdmin == null)
+            {
+                MessageBox.Show("There is no admin currently logged in!");
+                return;
+            }
             //TODO:
             //getting the object through the API
             //Serialize the object gotten from the API, then open UpdateRecordView with the record instance
+            if ((dataGrid.SelectedItem as Record) != null)
+            {
+                var request = new RestRequest((string)null!, Method.Get);
+                request.AddParameter("recordid", (dataGrid.SelectedItem as Record)!.Id, ParameterType.GetOrPost);
+
+                var response = ManegementWindow.Client.Get(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                    MessageBox.Show(response.StatusDescription);
+                else
+                {
+                    Record recordFromGet = JsonSerializer.Deserialize<Record>(response.Content!)!;
+                    UpdateRecordView updateRecordView = new UpdateRecordView(recordFromGet);
+                    updateRecordView.ShowDialog();
+                    RefreshRecordsGrid();
+                }
+            }
+            else
+                MessageBox.Show("No records selected!");
         }
 
         private void btnDeleteRecord_Click(object sender, RoutedEventArgs e)
@@ -70,8 +94,6 @@ namespace RecordsManagementClient.Components
                                     "DELETE", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
-
-
                     RestRequest request = new RestRequest(ManegementWindow.RestURL, Method.Delete);
                     Dictionary<string, object> jsonObject = new Dictionary<string, object>();
                     jsonObject.Add("current_admin_name", ManegementWindow.currentAdmin!.AdminName);

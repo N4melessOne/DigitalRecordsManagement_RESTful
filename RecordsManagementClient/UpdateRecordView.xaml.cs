@@ -26,11 +26,15 @@ namespace RecordsManagementClient
         {
             InitializeComponent();
             this.updateRecord= recordToUpdate;
+            InitializeFields();
         }
 
         private void InitializeFields()
         {
-            //TODO
+            this.tbNewRecordPerformer.Text = updateRecord.Performer;
+            this.tbNewRecordTitle.Text = updateRecord.Title;
+            this.tbNewRecordPrice.Text = updateRecord.Price.ToString();
+            this.tbNewRecordStock.Text = updateRecord.StockCount.ToString();
         }
 
         private void updateRecordBtn_Click(object sender, RoutedEventArgs e)

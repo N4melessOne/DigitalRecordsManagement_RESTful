@@ -39,7 +39,7 @@ function getRecordById($id){
         $record['Price'] = $row->Price;
         $record['StockCount'] = $row->StockCount;
 
-        $response[] = $record;
+        $response = $record;
     }
     echo json_encode($response);
 }
@@ -47,7 +47,7 @@ function getRecordById($id){
 
 function addRecord($performer, $title, $price, $stock){
     //beacuse the client passes in the $price with decimal comma, I have to validate.
-    $priceNum;
+    $priceNum = 0;
     if (str_contains(strval($price), ',')){
         $str_price = strval($price);
         $priceNum = floatval(str_replace(',', '.', $str_price));
@@ -83,7 +83,7 @@ function addRecord($performer, $title, $price, $stock){
         else{
             $response = array();
             $response['Error'] = 1;
-            $response['Message'] = "Insert failed!";
+            $response['Message'] = "Query failed!";
             echo(json_encode($response));
         }
     }
@@ -114,7 +114,7 @@ function deleteRecordByID($id){
         else {
             $response = array();
             $response['Error'] = 1;
-            $response['Message'] = "Delete failed!";
+            $response['Message'] = "Query failed!";
             echo(json_encode($response));
         }
     }
@@ -126,24 +126,42 @@ function deleteRecordByID($id){
 
 
 function updateRecordByID($id, $performer, $title, $price, $stock){
+    //beacuse the client passes in the $price with decimal comma, I have to validate.
+    $priceNum = 0;
+    if (str_contains(strval($price), ',')){
+        $str_price = strval($price);
+        $priceNum = floatval(str_replace(',', '.', $str_price));
+    }
+    else{
+        $priceNum = $price;
+    }
+
     global $connection;
-    $params = array($performer, $title, $price, $stock, $id);
+    $params = array($performer, $title, $priceNum, $stock, $id);
     $options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
     $query = "UPDATE [dbo].Record SET Performer=?, Title=?, Price=?, StockCount=? WHERE Id=?";
     try {
         $statement = sqlsrv_query($connection, $query, $params, $options);
-        $row_count = sqlsrv_num_rows($statement);
+        if ($statement){
+            $row_count = sqlsrv_num_rows($statement);
 
-        if($row_count) {
-            $response = array();
-            $response['Error'] = 0;
-            $response['Message'] = "Updated successfully!";
-            echo(json_encode($response));
+            if($row_count) {
+                $response = array();
+                $response['Error'] = 0;
+                $response['Message'] = "Updated successfully!";
+                echo(json_encode($response));
+            }
+            else {
+                $response = array();
+                $response['Error'] = 1;
+                $response['Message'] = "Updated failed!";
+                echo(json_encode($response));
+            }
         }
-        else {
+        else{
             $response = array();
             $response['Error'] = 1;
-            $response['Message'] = "Updated failed!";
+            $response['Message'] = "Query failed!";
             echo(json_encode($response));
         }
     }
