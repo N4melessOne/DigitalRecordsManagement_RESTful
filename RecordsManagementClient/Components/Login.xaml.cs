@@ -28,6 +28,7 @@ namespace RecordsManagementClient.Components
         {
             InitializeComponent();
         }
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             var request = new RestRequest(ManegementWindow.RestURL + "/login.php", Method.Post);

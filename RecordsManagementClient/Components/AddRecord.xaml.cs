@@ -53,7 +53,7 @@ namespace RecordsManagementClient.Components
             }
             if (_regexEnglishAlphabet.IsMatch(tbNewRecordPerformer.Text))
             {
-                MessageBox.Show("Please use only letters from the englis alphabet!");
+                MessageBox.Show("Please use only letters from the english alphabet!");
                 tbNewRecordPerformer.Focus();
                 return;
             }
@@ -62,13 +62,13 @@ namespace RecordsManagementClient.Components
             //New Title
             if (string.IsNullOrEmpty(tbNewRecordTitle.Text))
             {
-                MessageBox.Show("It seems like there was no Performer typed in.");
+                MessageBox.Show("It seems like there was no Title typed in.");
                 tbNewRecordTitle.Focus();
                 return;
             }
             if (_regexEnglishAlphabet.IsMatch(tbNewRecordTitle.Text))
             {
-                MessageBox.Show("Please use only letters from the englis alphabet!");
+                MessageBox.Show("Please use only letters from the english alphabet!");
                 tbNewRecordPerformer.Focus();
                 return;
             }
@@ -77,7 +77,7 @@ namespace RecordsManagementClient.Components
             //New Price
             if (string.IsNullOrEmpty(tbNewRecordPrice.Text))
             {
-                MessageBox.Show("It seems like there was no Performer typed in.");
+                MessageBox.Show("It seems like there was no Price typed in.");
                 tbNewRecordPrice.Focus();
                 return;
             }

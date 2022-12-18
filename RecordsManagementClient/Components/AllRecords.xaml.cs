@@ -73,6 +73,7 @@ namespace RecordsManagementClient.Components
                     Record recordFromGet = JsonSerializer.Deserialize<Record>(response.Content!)!;
                     UpdateRecordView updateRecordView = new UpdateRecordView(recordFromGet);
                     updateRecordView.ShowDialog();
+
                     RefreshRecordsGrid();
                 }
             }

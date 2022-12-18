@@ -67,10 +67,10 @@ switch ($request){
 		}
 
 		//the client will handle the parameters, so they should never be empty!
-		if (!empty($data["id"]) && !empty($data["new_record_performer"]) && !empty($data["new_record_title"]) &&
+		if (!empty($data["recordid"]) && !empty($data["new_record_performer"]) && !empty($data["new_record_title"]) &&
 			!empty($data["new_record_price"]) && !empty($data["new_record_stock"])) {
 
-				updateRecordByID($data["id"], $data["new_record_performer"], $data["new_record_title"],
+				updateRecordByID($data["recordid"], $data["new_record_performer"], $data["new_record_title"],
 					$data["new_record_price"], $data["new_record_stock"]);
 			}
 
