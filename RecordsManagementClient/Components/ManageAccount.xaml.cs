@@ -32,8 +32,21 @@ namespace RecordsManagementClient.Components
         }
         private void InitializeFields()
         {
-            tbAdmin.Text = ManegementWindow.currentAdmin.AdminName;
-            pbAdmin.Password = ManegementWindow.currentAdmin.AdminPass;
+            if (ManegementWindow.currentAdmin != null)
+            {
+                tbAdmin.Text = ManegementWindow.currentAdmin.AdminName;
+                pbAdmin.Password = ManegementWindow.currentAdmin.AdminPass;
+                this.tbAdmin.IsEnabled = true;
+                this.pbAdmin.IsEnabled = true;
+                this.saveAcount.IsEnabled = true;
+            }
+            else
+            {
+                MessageBox.Show("There is currently no admin logged in!");
+                this.tbAdmin.IsEnabled = false;
+                this.pbAdmin.IsEnabled = false;
+                this.saveAcount.IsEnabled = false;
+            }
         }
 
         private void saveAcount_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RecordsManagementClient.Components.ManageAccount"
+﻿<UserControl x:Class="RecordsManagementClient.Components.Logout"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -57,16 +57,16 @@
                      Template="{StaticResource roundedPasswdBox}"
                      IsEnabled="False"/>
 
-        <Button Content="Save Changes"
+        <Button Content="Logout"
                 Template="{StaticResource roundedButton}"
-                Style="{StaticResource mainButtonStyle}"
+                Style="{StaticResource loginButtonStyle}"
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Width="600"
-                Height="100"
-                x:Name="saveAcount"
-                Click="saveAcount_Click"
-                IsEnabled="False"/>
+                FontSize="22"
+                Width="400"
+                Height="80"
+                x:Name="btnLogout"
+                Click="btnLogout_Click"/>
     </Grid>
 </UserControl>

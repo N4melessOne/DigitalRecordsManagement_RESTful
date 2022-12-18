@@ -91,8 +91,16 @@ namespace RecordsManagementClient
 
             mainGrid.Children.Clear();
 
-            Login loginGrid = new Login();
-            mainGrid.Children.Add(loginGrid);
+            if (currentAdmin != null)
+            {
+                Logout logoutGrid = new Logout();
+                mainGrid.Children.Add(logoutGrid);
+            }
+            else
+            {
+                Login loginGrid = new Login();
+                mainGrid.Children.Add(loginGrid);
+            }
         }
     }
 }
