@@ -1,0 +1,14 @@
+{
+  "name": "records-management-server",
+  "version": "0.0.0",
+  "description": "RecordsManagementServer",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  },
+  "eslintConfig": {
+  }
+}
