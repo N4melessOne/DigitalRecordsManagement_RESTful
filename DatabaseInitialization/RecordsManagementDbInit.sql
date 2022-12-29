@@ -1,7 +1,6 @@
 ﻿USE [RecordsManagementDb]
 GO
 
-/****** Object: Table [dbo].[Admins] Script Date: 2022. 12. 19. 11:20:55 ******/
 SET ANSI_NULLS ON
 GO
 

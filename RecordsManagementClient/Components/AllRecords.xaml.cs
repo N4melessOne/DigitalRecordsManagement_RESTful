@@ -56,9 +56,6 @@ namespace RecordsManagementClient.Components
                 MessageBox.Show("There is no admin currently logged in!");
                 return;
             }
-            //TODO:
-            //getting the object through the API
-            //Serialize the object gotten from the API, then open UpdateRecordView with the record instance
             if ((dataGrid.SelectedItem as Record) != null)
             {
                 var request = new RestRequest((string)null!, Method.Get);
